@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/circle"
+        android:layout_width="148dp"
+        android:layout_height="188dp"
+        android:layout_marginStart="-20dp"
+        android:src="@drawable/beige_circle"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/numa"
+        style="@style/h3"
+        android:layout_width="13dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="76dp"
+        android:text="1"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toTopOf="@id/circle" />
+
+    <!--app:layout_constraintEnd_toStartOf="@+id/guidelineRegisterRight"
+        app:layout_constraintStart_toStartOf="@id/circle"-->
+
+
+    <ImageView
+        android:id="@+id/banner"
+        android:layout_width="250dp"
+        android:layout_height="127dp"
+        android:layout_marginStart="85dp"
+        android:scaleX="1.5"
+        android:src="@drawable/banner"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/circle"
+        app:layout_constraintTop_toTopOf="@id/circle" />
+
+    <TextView
+        android:id="@+id/rega"
+        style="@style/h3"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="76dp"
+        android:fontFamily="sans-serif"
+        android:text="Personal Information"
+        android:textColor="@color/dusty_white"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toTopOf="@id/banner" />
+
+    <TextView
+        android:id="@+id/FullName"
+        style="@style/h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="44dp"
+        android:gravity="center"
+        android:text="Full Name"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/banner" />
+
+    <EditText
+        android:id="@+id/edFullName"
+        style="@style/editText"
+        android:layout_width="290dp"
+        android:layout_height="@dimen/edittextHeight"
+        android:layout_marginTop="26dp"
+        android:hint="As per MyKad/IC"
+        android:inputType="textPersonName"
+        android:textColorHint="#B4B4B8"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/FullName" />
+
+    <TextView
+        android:id="@+id/ICnum"
+        style="@style/h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="124dp"
+        android:gravity="center"
+        android:text="MyKad Number"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/FullName" />
+
+    <EditText
+        android:id="@+id/edICnum"
+        android:layout_width="290dp"
+        android:layout_height="@dimen/edittextHeight"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+        app:layout_constraintTop_toBottomOf="@id/ICnum"
+        style="@style/editText"
+        android:hint="As per MyKad/IC"
+        android:textColorHint="#B4B4B8"
+        android:inputType="number"
+        android:layout_marginTop="26dp"
+        />
+
+    <TextView
+        android:id="@+id/hpnum"
+        style="@style/h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="120dp"
+        android:gravity="center"
+        android:text="Phone Number"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/ICnum" />
+
+    <EditText
+        android:id="@+id/edhpnum"
+        android:layout_width="290dp"
+        android:layout_height="@dimen/edittextHeight"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+        app:layout_constraintTop_toBottomOf="@id/hpnum"
+        style="@style/editText"
+        android:hint="+06-"
+        android:textColorHint="#B4B4B8"
+        android:inputType="phone"
+        android:layout_marginTop="26dp"
+        />
+
+
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+        android:id="@+id/buttonNext"
+        style="@style/blueButtonStyle"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="Next"
+        android:textAlignment="center"
+        android:textColor="@color/dusty_white"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/banner"
+        app:layout_constraintHorizontal_bias="0.596"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/banner"
+        app:layout_constraintVertical_bias="0.792" />
+
+    <TextView
+        android:id="@+id/tvDontHaveAccount"
+        style="@style/h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:gravity="center"
+        android:text="Do you have an account? Login Here"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@+id/buttonNext"
+        app:layout_constraintVertical_bias="0.244" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRegisterLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRegisterRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.93" />
+</androidx.constraintlayout.widget.ConstraintLayout>

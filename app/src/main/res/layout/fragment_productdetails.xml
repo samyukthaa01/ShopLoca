@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSave"
+            style="@style/blueButtonStyle"
+            android:layout_width="151dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:text="Save"
+            android:textAlignment="center"
+            android:textColor="@color/dusty_white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/productsInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="10dp"
+            android:foregroundTint="@color/black"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product general information:"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Name"
+                android:minHeight="48dp" />
+
+
+            <EditText
+                android:id="@+id/edDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Product description (Optional)"
+                android:minHeight="48dp" />
+
+            <EditText
+                android:id="@+id/edPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Price"
+                android:inputType="number"
+                android:minHeight="48dp" />
+
+            <EditText
+                android:id="@+id/offerPercentage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Offer Percentage (Optional)"
+                android:inputType="number"
+                android:minHeight="48dp" />
+
+            <Spinner
+                android:id="@+id/spinnerCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+
+
+                android:gravity="center_vertical"
+                android:minHeight="48dp"
+                android:prompt="@string/category_prompt"
+                android:spinnerMode="dropdown" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/productsInfo"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/productsInfo"
+            app:layout_constraintTop_toBottomOf="@id/productsInfo">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product details:"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <RadioGroup
+                android:id="@+id/edSizes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvSizesTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Sizes:"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/rbSizeSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S" />
+
+                <RadioButton
+                    android:id="@+id/rbSizeMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="M" />
+
+                <RadioButton
+                    android:id="@+id/rbSizeLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="L" />
+
+                <RadioButton
+                    android:id="@+id/rbSizeXLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XL" />
+
+                <RadioButton
+                    android:id="@+id/rbSizeOthers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Others" />
+                <!-- Add more RadioButton items here for additional sizes -->
+
+            </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layoutSelectedColors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                android:layout_marginTop="10dp"
+                android:padding="5dp">
+
+
+                <TextView
+                    android:id="@+id/tvColorsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Colors:"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <!-- Example checkbox for color option -->
+                <Button
+                    android:id="@+id/colorOption1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="4dp"
+                    android:background="@color/color_option_1"
+                    android:onClick="onColorOptionSelected" />
+
+                <Button
+                    android:id="@+id/colorOption2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="4dp"
+                    android:background="@color/color_option_2"
+                    android:onClick="onColorOptionSelected" />
+
+                <Button
+                    android:id="@+id/colorOption3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="4dp"
+                    android:background="@color/color_option_3"
+                    android:onClick="onColorOptionSelected" />
+
+
+                <Button
+                    android:id="@+id/colorOption5"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="4dp"
+                    android:background="@color/color_option_5"
+                    android:onClick="onColorOptionSelected" />
+
+                <Button
+                    android:id="@+id/colorOption6"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="4dp"
+                    android:background="@color/color_option_6"
+                    android:onClick="onColorOptionSelected" />
+
+                <Button
+                    android:id="@+id/colorOption7"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="4dp"
+                    android:background="@color/color_option_7"
+                    android:onClick="onColorOptionSelected" />
+
+                <Button
+                    android:id="@+id/colorOption8"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="4dp"
+                    android:background="@color/color_option_8"
+                    android:onClick="onColorOptionSelected" />
+
+                <Button
+                    android:id="@+id/colorOption10"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="4dp"
+                    android:background="@color/color_option_10"
+                    android:text="Others"
+                    android:textSize="12sp"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:onClick="onColorOptionSelected" />
+
+            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvSelectedColors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:layout_marginStart="8dp"
+                    android:textSize="16sp"
+
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <!-- Title TextView -->
+                    <TextView
+                        android:id="@+id/tvImagesTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Images:"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <!-- Images button -->
+                    <ImageButton
+                        android:id="@+id/buttonImagesPicker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                       style="@style/blueButtonStyle"
+                        android:src="@drawable/ic_image"
+                        android:scaleType="center" />
+
+
+                </LinearLayout>
+
+                <!-- Selected images TextView -->
+                <TextView
+                    android:id="@+id/tvSelectedImages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

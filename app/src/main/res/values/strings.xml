@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ShopLoca</string>
+    <string name="welcomeMsg">Welcome To ShopLoca Sellers!</string>
+    <string name="instructionMsg">Complete Registration in 2 Steps.</string>
+    <string name="registernuma">1</string>
+    <string name="registertitlea">Personal Information</string>
+    <string name="search">Search Now</string>
+    <string name="category_prompt">Category</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

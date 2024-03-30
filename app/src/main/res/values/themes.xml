@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.ShopLo" parent="Theme.AppCompat.Light.NoActionBar" >
+
+        <!--Primary brand color -->
+    <item name="colorPrimary">@color/bright_yellow</item>
+    <item name="colorPrimaryVariant">@color/forest_green</item>
+    <item name="colorOnPrimary">@color/black</item>
+
+    <!--Secondary brand color -->
+    <item name="colorSecondary">@color/forest_green</item>
+    <item name="colorSecondaryVariant">@color/beige</item>
+    <item name="colorOnSecondary">@color/dusty_white</item>
+
+    <!-- Status bar color -->
+    <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+
+        <!-- Background color for all layouts -->
+        <item name="android:windowBackground">@color/bright_yellow</item>
+    </style>
+</resources>

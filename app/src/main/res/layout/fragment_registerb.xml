@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/circle"
+        android:layout_width="148dp"
+        android:layout_height="188dp"
+        android:layout_marginStart="-20dp"
+        android:src="@drawable/beige_circle"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/numb"
+        style="@style/h3"
+        android:layout_width="13dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="76dp"
+        android:text="2"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toTopOf="@id/circle" />
+
+    <!--app:layout_constraintEnd_toStartOf="@+id/guidelineRegisterRight"
+        app:layout_constraintStart_toStartOf="@id/circle"-->
+
+
+    <ImageView
+        android:id="@+id/banner"
+        android:layout_width="250dp"
+        android:layout_height="127dp"
+        android:layout_marginStart="85dp"
+        android:scaleX="1.5"
+        android:src="@drawable/banner"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/circle"
+        app:layout_constraintTop_toTopOf="@id/circle" />
+
+    <TextView
+        android:id="@+id/regb"
+        style="@style/h3"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="76dp"
+        android:fontFamily="sans-serif"
+        android:text="Business Information"
+        android:textColor="@color/dusty_white"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toTopOf="@id/banner" />
+
+    <TextView
+        android:id="@+id/Shopname"
+        style="@style/h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="Shop Name"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/banner" />
+
+    <EditText
+        android:id="@+id/edShopname"
+        style="@style/editText"
+        android:layout_width="290dp"
+        android:layout_height="@dimen/edittextHeight"
+        android:layout_marginTop="15dp"
+        android:hint="Your preferred shop name"
+        android:inputType="textPersonName"
+        android:textColorHint="#B4B4B8"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/Shopname" />
+
+    <TextView
+        android:id="@+id/Pickupaddress"
+        style="@style/h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:text="Pickup Address"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/Shopname" />
+
+    <EditText
+        android:id="@+id/edPickupaddress"
+        style="@style/editText"
+        android:layout_width="290dp"
+        android:layout_height="@dimen/edittextHeight"
+        android:layout_marginTop="15dp"
+        android:hint="Your preferred address"
+        android:inputType="text"
+        android:textColorHint="#B4B4B8"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/Pickupaddress" />
+
+    <TextView
+        android:id="@+id/Email"
+        style="@style/h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:text="Email"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/Pickupaddress" />
+
+    <EditText
+        android:id="@+id/edEmail"
+        style="@style/editText"
+        android:layout_width="290dp"
+        android:layout_height="@dimen/edittextHeight"
+        android:layout_marginTop="15dp"
+        android:hint="eg: abc@gmail.com"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#B4B4B8"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/Email" />
+
+    <TextView
+        android:id="@+id/Password"
+        style="@style/h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:text="Password"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/Email" />
+
+    <EditText
+        android:id="@+id/edPasswordRegister"
+        style="@style/editText"
+        android:layout_width="290dp"
+        android:layout_height="@dimen/edittextHeight"
+        android:layout_marginTop="15dp"
+        android:hint="min 8 characters"
+        android:inputType="textPassword"
+        android:textColorHint="#B4B4B8"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+        app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+        app:layout_constraintTop_toBottomOf="@id/Password" />
+
+
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+        android:id="@+id/buttonRegisterRegister"
+        style="@style/blueButtonStyle"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="-18dp"
+        android:gravity="center"
+        android:text="Submit"
+        android:textAlignment="center"
+        android:textColor="@color/dusty_white"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/banner"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/banner"
+        app:layout_constraintVertical_bias="0.895"
+        app:spinning_bar_color="@color/white" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRegisterLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRegisterRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.93" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

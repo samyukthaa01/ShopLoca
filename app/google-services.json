@@ -1,0 +1,143 @@
+{
+  "project_info": {
+    "project_number": "825237982266",
+    "firebase_url": "https://ecommerce-app-f85ed-default-rtdb.firebaseio.com",
+    "project_id": "ecommerce-app-f85ed",
+    "storage_bucket": "ecommerce-app-f85ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825237982266:android:0d6fc76906411407a93903",
+        "android_client_info": {
+          "package_name": "com.example.eco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825237982266-rfvdtt7e13h5isvgikmp87kmnoh0agmg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAREsraBmWJ3ivHQYfrf2So-wuTuKJ5I5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "825237982266-rfvdtt7e13h5isvgikmp87kmnoh0agmg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825237982266:android:8e00edc48b8f90a0a93903",
+        "android_client_info": {
+          "package_name": "com.example.ecommerceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825237982266-rfvdtt7e13h5isvgikmp87kmnoh0agmg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAREsraBmWJ3ivHQYfrf2So-wuTuKJ5I5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "825237982266-rfvdtt7e13h5isvgikmp87kmnoh0agmg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825237982266:android:bd71d73bdd953d08a93903",
+        "android_client_info": {
+          "package_name": "com.example.ecommerceapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825237982266-rg8rc42e753uveburnrkjlr628gi7moi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ecommerceapplication",
+            "certificate_hash": "4422bbf285d7e302a56a7757d71c0a10224c9ddd"
+          }
+        },
+        {
+          "client_id": "825237982266-rfvdtt7e13h5isvgikmp87kmnoh0agmg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAREsraBmWJ3ivHQYfrf2So-wuTuKJ5I5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "825237982266-rfvdtt7e13h5isvgikmp87kmnoh0agmg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825237982266:android:fd7728f3c6db5048a93903",
+        "android_client_info": {
+          "package_name": "com.example.shoplo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825237982266-g6ptleagtbbk9eoilopmmlggmufqta65.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shoplo",
+            "certificate_hash": "96ac923c07d5fb3b57346522efbc84915fd221fd"
+          }
+        },
+        {
+          "client_id": "825237982266-rfvdtt7e13h5isvgikmp87kmnoh0agmg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAREsraBmWJ3ivHQYfrf2So-wuTuKJ5I5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "825237982266-rfvdtt7e13h5isvgikmp87kmnoh0agmg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

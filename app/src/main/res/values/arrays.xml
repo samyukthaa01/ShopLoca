@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_options">
+        <item>Select Category</item>
+        <item>Handmade Crafts</item>
+        <item>Artwork</item>
+        <item>Fashion and Accessories</item>
+        <item>Home Decor</item>
+        <item>Food and Beverages</item>
+        <item>Personal Care Products</item>
+        <item>Gifts and Souvenirs</item>
+        <!-- Add more categories as needed -->
+    </string-array>
+</resources>
