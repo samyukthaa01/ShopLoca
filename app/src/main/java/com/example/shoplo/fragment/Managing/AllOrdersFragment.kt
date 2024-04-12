@@ -8,17 +8,13 @@ import androidx.lifecycle.lifecycleScope
 import com.example.shoplo.adapters.AllOrdersAdapter
 import com.example.shoplo.databinding.FragmentOrdersBinding
 import com.example.shoplo.util.Resource
-import com.example.shoplo.viewmodel.LoginViewModel
 import com.example.shoplo.viewmodel.OrderViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-
-@AndroidEntryPoint
 class AllOrdersFragment : Fragment() {
     private lateinit var binding: FragmentOrdersBinding
-    private val viewModel by viewModels<OrderViewModel>()
+    private val viewModel: OrderViewModel by viewModels()
     private val ordersAdapter = AllOrdersAdapter()
 
     override fun onCreateView(
