@@ -56,6 +56,7 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
     private val BLUE = android.graphics.Color.rgb(0, 13, 174)
     private val PINK = android.graphics.Color.rgb(255, 153, 153)
     private val PURPLE = android.graphics.Color.rgb(196, 122, 204)
+    private val COLOR_OTHERS = -1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -113,6 +114,10 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
         }
         binding.colorOption8.setOnClickListener {
             onColorOptionSelected(PURPLE, it as Button)
+        }
+
+        binding.colorOption10.setOnClickListener {
+            onColorOptionSelected(COLOR_OTHERS, it as Button)
         }
         // Add more color option buttons and listeners as needed
 
@@ -197,8 +202,8 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
             PINK -> "Pink"
             PURPLE -> "Purple"
 
-            // Add more color cases as needed
-            else -> "Others"
+            COLOR_OTHERS -> "Others"
+            else -> "Unknown"
         }
     }
 
@@ -206,6 +211,8 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
     private fun setupSaveButton() {
         binding.buttonSave.setOnClickListener {
             if (validateInformation()) {
+                // Start the button animation
+                binding.buttonSave.startAnimation()
                 saveProduct()
             } else {
                 Toast.makeText(requireContext(), "Check your inputs", Toast.LENGTH_SHORT).show()
@@ -214,6 +221,7 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
     }
 
     private fun saveProduct() {
+
         val productName = binding.edName.text.toString().trim()
         val productCategory = categorySpinner.selectedItem.toString().trim()
         val price = binding.edPrice.text.toString().trim()
@@ -221,8 +229,14 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
         val productDescription = binding.edDescription.text.toString().trim()
         val sizesRadioGroup = binding.edSizes
         val selectedSizeId = sizesRadioGroup.checkedRadioButtonId
-        val selectedSizeRadioButton = sizesRadioGroup.findViewById<RadioButton>(selectedSizeId)
-        val selectedSize = selectedSizeRadioButton.text.toString()
+        val selectedSize: String
+
+        if (selectedSizeId != -1) {
+            val selectedSizeRadioButton = sizesRadioGroup.findViewById<RadioButton>(selectedSizeId)
+            selectedSize = selectedSizeRadioButton.text.toString()
+        } else {
+            selectedSize = ""  // or any default value
+        }
 
         // Get the current user
         val currentUser = FirebaseAuth.getInstance().currentUser
@@ -230,13 +244,12 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
         // Get the sellerID
         val sellerID = currentUser?.uid ?: ""
 
-        // Fetch the sellerName (FullName) from Firestore
-        firestore.collection("shop").document(sellerID).get().addOnSuccessListener { document ->
-            val sellerName = document.getString("FullName") ?: ""
-            val shopID = document.getString("sellerID") ?: ""
+        // Fetch the sellerName (fullName) from Firestore
+        firestore.collection("shop").document(sellerID).get().addOnSuccessListener { shopDocument ->
+            val sellerName = shopDocument.getString("fullName") ?: ""
 
             // Fetch the shopName from Firestore
-            firestore.collection("seller").document(shopID).get()
+            firestore.collection("seller").document(sellerID).get()
                 .addOnSuccessListener { shopDocument ->
                     val shopName = shopDocument.getString("shopName") ?: ""
 
@@ -246,7 +259,7 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
 
                     lifecycleScope.launch(Dispatchers.IO) {
                         withContext(Dispatchers.Main) {
-                            showLoading()
+
                         }
 
                         try {
@@ -266,7 +279,7 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
                         } catch (e: java.lang.Exception) {
                             e.printStackTrace()
                             withContext(Dispatchers.Main) {
-                                hideLoading()
+
                             }
                         }
                         val product = Product(
@@ -279,14 +292,15 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
                             if (selectedColors.isEmpty()) null else selectedColors,
                             sizes,
                             productImages,
+                            System.currentTimeMillis(),
                             shopName, // new field
                             sellerID, // new field
                             sellerName // new field
                         )
                         firestore.collection("Products").add(product).addOnSuccessListener {
-                            hideLoading()
+                            binding.buttonSave.revertAnimation()
                         }.addOnFailureListener {
-                            hideLoading()
+                            binding.buttonSave.revertAnimation()
                             Log.e("Error", it.message.toString())
                         }
                     }
@@ -294,13 +308,6 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
         }
     }
 
-    private fun hideLoading() {
-        binding.progressBar.visibility = View.INVISIBLE
-    }
-
-    private fun showLoading() {
-        binding.progressBar.visibility = View.VISIBLE
-    }
 
     private fun getImagesByteArrays(): List<ByteArray> {
         val imagesByteArray = mutableListOf<ByteArray>()

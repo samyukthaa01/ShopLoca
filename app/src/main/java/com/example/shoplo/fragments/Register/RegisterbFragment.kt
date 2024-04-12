@@ -62,7 +62,6 @@ class RegisterbFragment : Fragment(R.layout.fragment_registerb) {
         binding.apply {
             buttonRegisterRegister.setOnClickListener {
                 val user = Seller(
-                    UUID.randomUUID().toString(),
                     shopName = edShopname.text.toString().trim(),
                     address = edPickupaddress.text.toString().trim(),
                     email = edEmail.text.toString().trim()

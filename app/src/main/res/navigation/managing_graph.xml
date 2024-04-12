@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -26,8 +27,15 @@
             android:id="@+id/action_homeFragment_to_userAccountFragment"
             app:destination="@id/userAccountFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_orderFragment"
-            app:destination="@id/orderFragment" />
+            android:id="@+id/action_homeFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_allOrdersFragment"
+            app:destination="@id/allOrdersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_guideFragment"
+            app:destination="@id/guideFragment" />
+
 
     </fragment>
 
@@ -79,6 +87,7 @@
         android:label="ProductDetailViewFragment"
         tools:layout="@layout/fragment_productdetailview">
 
+
         <!--suppress NavigationFile -->
         <argument
             android:name="product"
@@ -100,8 +109,40 @@
         android:name="com.example.shoplo.fragment.Managing.FaqFragment"
         android:label="FaqFragment" />
     <fragment
-        android:id="@+id/orderFragment"
-        android:name="com.example.shoplo.fragment.Managing.OrderFragment"
-        android:label="OrderFragment" />
+        android:id="@+id/postFragment"
+        android:name="com.example.shoplo.fragment.Managing.PostFragment"
+        android:label="PostFragment" >
+        <action
+            android:id="@+id/action_postFragment_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment">
+            <!--suppress NavigationFile -->
+            <argument
+                android:name="selectedPost"
+                app:argType="com.example.shoplo.data.Post"
+                />
+        </action>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/postDetailsFragment"
+        android:name="com.example.shoplo.fragment.Managing.PostDetailsFragment"
+        android:label="PostDetailsFragment" />
+    <fragment
+        android:id="@+id/allOrdersFragment"
+        android:name="AllOrdersFragment"
+        android:label="AllOrdersFragment" />
+    <fragment
+        android:id="@+id/guideFragment"
+        android:name="com.example.shoplo.fragment.Managing.GuideFragment"
+        android:label="GuideFragment" >
+        <action
+            android:id="@+id/action_guideFragment_to_guideDetailsFragment"
+            app:destination="@id/guideDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/guideDetailsFragment"
+        android:name="com.example.shoplo.fragment.Managing.GuideDetailsFragment"
+        android:label="GuideDetailsFragment" />
 
 </navigation>

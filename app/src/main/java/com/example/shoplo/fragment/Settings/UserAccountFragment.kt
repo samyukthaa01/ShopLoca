@@ -24,6 +24,8 @@ import com.example.shoplo.databinding.FragmentUserAccountBinding
 import com.example.shoplo.util.Resource
 
 import com.example.shoplo.viewmodel.UserAccountViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -32,6 +34,7 @@ class UserAccountFragment : Fragment() {
     private lateinit var binding: FragmentUserAccountBinding
     private val viewModel by viewModels<UserAccountViewModel>()
     private lateinit var imageActivityResultLauncher: ActivityResultLauncher<Intent>
+    private val firestore = FirebaseFirestore.getInstance()
 
     private var imageUri: Uri? = null
 
@@ -63,13 +66,16 @@ class UserAccountFragment : Fragment() {
                     is Resource.Loading -> {
                         showUserLoading()
                     }
+
                     is Resource.Success -> {
                         hideUserLoading()
                         showUserInformation(it.data!!)
                     }
+
                     is Resource.Error -> {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
+
                     else -> Unit
                 }
             }
@@ -81,14 +87,17 @@ class UserAccountFragment : Fragment() {
                     is Resource.Loading -> {
                         binding.buttonSave.startAnimation()
                     }
+
                     is Resource.Success -> {
                         binding.buttonSave.revertAnimation()
                         findNavController().navigateUp()
                     }
+
                     is Resource.Error -> {
                         binding.buttonSave.revertAnimation()
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
+
                     else -> Unit
                 }
             }
@@ -98,12 +107,19 @@ class UserAccountFragment : Fragment() {
 
         binding.buttonSave.setOnClickListener {
             binding.apply {
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                val sellerID = currentUser?.uid ?: ""
 
-                val shopName = edFirstName.text.toString().trim()
-                val address = edLastName.text.toString().trim()
-                val email = edEmail.text.toString().trim()
-                val user = Seller(shopName, address, email)
-                viewModel.updateUser(user, imageUri)
+                firestore.collection("shop").document(sellerID).get()
+                    .addOnSuccessListener { document ->
+                        val shopID = document.getString("shopID") ?: ""
+
+                        val shopName = edFirstName.text.toString().trim()
+                        val address = edLastName.text.toString().trim()
+                        val email = edEmail.text.toString().trim()
+                        val user = Seller(shopID, shopName, address, email)
+                        viewModel.updateUser(user, imageUri)
+                    }
             }
         }
 
@@ -112,10 +128,9 @@ class UserAccountFragment : Fragment() {
             intent.type = "image/*"
             imageActivityResultLauncher.launch(intent)
         }
-
     }
 
-    private fun showUserInformation(data: Seller) {
+        private fun showUserInformation(data: Seller) {
         binding.apply {
             Glide.with(this@UserAccountFragment).load(data.imagePath).error(ColorDrawable(Color.BLACK)).into(imageUser)
             edFirstName.setText(data.shopName)

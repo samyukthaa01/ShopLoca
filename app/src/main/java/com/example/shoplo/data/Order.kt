@@ -14,5 +14,6 @@ data class Order(
     val products: String = " ",
     val address: String = "",
     val date: String = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(Date()),
-    val orderId: String
+    val orderId: String,
+    var items: List<Item> = listOf()
 ): Parcelable

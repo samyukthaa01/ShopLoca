@@ -11,12 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/buttonSave"
             style="@style/blueButtonStyle"
             android:layout_width="151dp"
             android:layout_height="40dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="0dp"
             android:gravity="center"
             android:text="Save"
             android:textAlignment="center"
@@ -24,16 +24,9 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:spinning_bar_color="@color/white" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -309,19 +302,21 @@
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <!-- Images button -->
                     <ImageButton
                         android:id="@+id/buttonImagesPicker"
+                        style="@style/blueButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                       style="@style/blueButtonStyle"
-                        android:src="@drawable/ic_image"
-                        android:scaleType="center" />
+                        android:scaleType="center"
+                        android:src="@drawable/ic_image" />
+
+                    <!-- Images button -->
 
 
                 </LinearLayout>
 
                 <!-- Selected images TextView -->
+
                 <TextView
                     android:id="@+id/tvSelectedImages"
                     android:layout_width="wrap_content"

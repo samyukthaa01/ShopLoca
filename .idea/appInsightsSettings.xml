@@ -2,5 +2,26 @@
 <project version="4">
   <component name="AppInsightsSettings">
     <option name="selectedTabId" value="Firebase Crashlytics" />
+    <option name="tabSettings">
+      <map>
+        <entry key="Firebase Crashlytics">
+          <value>
+            <InsightsFilterSettings>
+              <option name="connection">
+                <ConnectionSetting>
+                  <option name="appId" value="com.example.shoplo" />
+                  <option name="mobileSdkAppId" value="1:825237982266:android:fd7728f3c6db5048a93903" />
+                  <option name="projectId" value="ecommerce-app-f85ed" />
+                  <option name="projectNumber" value="825237982266" />
+                </ConnectionSetting>
+              </option>
+              <option name="signal" value="SIGNAL_FRESH" />
+              <option name="timeIntervalDays" value="ONE_DAY" />
+              <option name="visibilityType" value="ALL" />
+            </InsightsFilterSettings>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

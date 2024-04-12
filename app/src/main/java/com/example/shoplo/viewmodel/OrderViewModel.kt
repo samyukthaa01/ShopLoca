@@ -2,6 +2,7 @@ package com.example.shoplo.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.shoplo.data.Item
 import com.example.shoplo.data.Order
 import com.example.shoplo.util.Resource
 import com.google.firebase.auth.FirebaseAuth
@@ -21,44 +22,43 @@ class OrderViewModel @Inject constructor(
     private val _order = MutableStateFlow<Resource<List<Order>>>(Resource.Unspecified())
     val order = _order.asStateFlow()
 
-    fun placeOrder(order: Order) {
-        viewModelScope.launch {
-            _order.emit(Resource.Loading())
-        }
-
-        // Assuming you have a different mechanism to add orders to the "orders" collection
-        // Add the order into the "orders" collection
-        firestore.collection("orders")
-            .document()
-            .set(order)
-            .addOnSuccessListener {
-                viewModelScope.launch {
-                    _order.emit(Resource.Success(listOf(order)))
-                }
-            }
-            .addOnFailureListener { exception ->
-                viewModelScope.launch {
-                    _order.emit(Resource.Error(exception.message.toString()))
-                }
-            }
-    }
-
-    // Function to retrieve orders from the "orders" collection
+    // Function to retrieve orders and their items from the "Order" collection
+    // Function to retrieve orders and their items from the "Order" collection
     fun getOrders() {
         viewModelScope.launch {
             _order.emit(Resource.Loading())
         }
 
-        firestore.collection("orders").get()
+        firestore.collection("Order").get()
             .addOnSuccessListener { result ->
                 val ordersList = mutableListOf<Order>()
                 for (document in result) {
                     val order = document.toObject(Order::class.java)
-                    ordersList.add(order)
-                }
 
-                viewModelScope.launch {
-                    _order.emit(Resource.Success(ordersList))
+                    // Get the items for this order
+                    document.reference.collection("Items").get()
+                        .addOnSuccessListener { itemsResult ->
+                            val itemsList = mutableListOf<Item>() // Replace with your Item class
+                            for (itemDocument in itemsResult) {
+                                val item = itemDocument.toObject(Item::class.java)
+                                itemsList.add(item)
+                            }
+
+                            // Add the items to the order
+                            order.items = itemsList
+
+                            // Add the order to the orders list
+                            ordersList.add(order)
+                        }
+                        .addOnFailureListener { exception ->
+                            viewModelScope.launch {
+                                _order.emit(Resource.Error(exception.message.toString()))
+                            }
+                        }
+
+                    viewModelScope.launch {
+                        _order.emit(Resource.Success(ordersList))
+                    }
                 }
             }
             .addOnFailureListener { exception ->
@@ -67,4 +67,5 @@ class OrderViewModel @Inject constructor(
                 }
             }
     }
+
 }

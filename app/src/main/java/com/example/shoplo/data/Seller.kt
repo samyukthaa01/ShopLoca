@@ -1,7 +1,7 @@
 package com.example.shoplo.data
 
 data class Seller(
-    val shopID: String,
+
     val shopName: String,
     val address: String,
     val email: String,

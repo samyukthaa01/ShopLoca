@@ -44,6 +44,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             onFaqImageClick(it)
         }
 
+        val guideImage = view.findViewById<ImageView>(R.id.roundin7)
+
+        // Set click listener for the faqImage ImageView
+        guideImage.setOnClickListener {
+            onGuideImageClick(it)
+        }
+
+        val contentImage = view.findViewById<ImageView>(R.id.roundin2)
+
+        // Set click listener for the faqImage ImageView
+        contentImage.setOnClickListener {
+            onContentImageClick(it)
+        }
+
         // Find the Button by ID (Replace with the actual ID of your button)
         val orderButton = view.findViewById<ImageView>(R.id.roundin3)
 
@@ -53,11 +67,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    private fun onGuideImageClick(view: View) {
+        findNavController().navigate(R.id.action_homeFragment_to_guideFragment)
+    }
+
     // New method for handling Order button click
     fun onOrderClick(view: View) {
         // Handle the click event here
         // For example, you can navigate to the Order Fragment
-        findNavController().navigate(R.id.action_homeFragment_to_orderFragment)
+        findNavController().navigate(R.id.action_homeFragment_to_allOrdersFragment)
     }
 
     fun onFaqImageClick(view: View) {
@@ -66,6 +84,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         findNavController().navigate(R.id.action_homeFragment_to_faqFragment)
     }
 
+    fun onContentImageClick(view: View) {
+        // Handle the click event here
+        // For example, you can navigate to the Order Fragment
+        findNavController().navigate(R.id.action_homeFragment_to_postFragment)
+    }
     // Move the function definition outside onViewCreated
     fun onProductImageClick(view: View) {
         // Handle the click event here

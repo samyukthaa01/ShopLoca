@@ -25,6 +25,7 @@ import com.example.shoplo.util.Resource
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -76,7 +77,7 @@ class ProductDetailViewFragment : Fragment() {
 
         binding.apply {
             tvProductName.text = product.productName
-            tvProductPrice.text = "$ ${product.price}"
+            tvProductPrice.text = "RM ${product.price}"
             tvProductDescription.text = product.productDescription
 
             if (product.colors.isNullOrEmpty())
@@ -90,10 +91,13 @@ class ProductDetailViewFragment : Fragment() {
         product.sizes?.let { sizesAdapter.differ.submitList(it) }
 
 
-        // Add click listener to the "Delete" button
         binding.buttonDeleteProduct.setOnClickListener {
             showDeleteConfirmationDialog()
         }
+
+
+
+
     }
 
     private fun setupViewpager() {
@@ -118,38 +122,41 @@ class ProductDetailViewFragment : Fragment() {
         }
     }
 
+
+
+
+
     private fun showDeleteConfirmationDialog() {
-        val dialog = AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(requireContext())
             .setTitle("Delete Product")
             .setMessage("Are you sure you want to delete this product?")
-            .setPositiveButton("Yes") { _, _ ->
-                // User clicked Yes, proceed with deletion
+            .setPositiveButton("Yes") { dialog, _ ->
                 deleteProduct()
+                dialog.dismiss()
             }
-            .setNegativeButton("No", null)
-            .create()
-
-        dialog.show()
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun deleteProduct() {
-        val productId = args.product.productId
+        // Get the current user
+        val currentUser = FirebaseAuth.getInstance().currentUser
 
-        // Perform the deletion operation
-        firestore.collection("Products").document(productId)
+        // Get the sellerID
+        val sellerID = currentUser?.uid ?: ""
+
+        // Delete the product from Firestore
+        firestore.collection("Products").document(sellerID)
             .delete()
             .addOnSuccessListener {
-                // Deletion successful
-                Toast.makeText(requireContext(), "Product deleted successfully", Toast.LENGTH_SHORT)
-                    .show()
-                // Navigate back to the previous screen or perform other actions as needed
-                findNavController().navigateUp()
+                Toast.makeText(requireContext(), "Product deleted successfully", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener { exception ->
-                // Handle deletion failure
                 Log.e("Firestore", "Error deleting product", exception)
-                Toast.makeText(requireContext(), "Failed to delete product", Toast.LENGTH_SHORT)
-                    .show()
             }
     }
+
+
 }

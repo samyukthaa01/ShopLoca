@@ -14,6 +14,7 @@ data class Product(
     val colors: List<Int>? = null,
     val sizes: List<String>? = null,
     val productImages: List<String>,
+    val timestamp: Long = System.currentTimeMillis(),
     val shopName: String,
     val sellerID: String,
     val sellerName: String

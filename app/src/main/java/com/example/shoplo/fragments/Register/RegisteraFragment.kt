@@ -38,7 +38,6 @@ class RegisteraFragment : Fragment(R.layout.fragment_registera) {
 
         binding.buttonNext.setOnClickListener {
             val shop = Shop(
-                UUID.randomUUID().toString(),
                 binding.edFullName.text.toString().trim(),
                 binding.edICnum.text.toString().trim(),
                 binding.edhpnum.text.toString().trim()
