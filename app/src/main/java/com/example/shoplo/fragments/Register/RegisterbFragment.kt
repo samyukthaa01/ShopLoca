@@ -1,11 +1,13 @@
 package com.example.shoplo.fragments.Register
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -47,6 +49,16 @@ class RegisterbFragment : Fragment(R.layout.fragment_registerb) {
         return binding.root
     }
 
+    private fun openGoogleMaps() {
+        val gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode("No.157, Jalan Batu Geliga"))
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        if (mapIntent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(mapIntent)
+        } else {
+            Toast.makeText(requireContext(), "Google Maps app is not installed", Toast.LENGTH_SHORT).show()
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -78,6 +90,11 @@ class RegisterbFragment : Fragment(R.layout.fragment_registerb) {
                 }
             }
 
+        }
+
+        binding.ivMapIcon.setOnClickListener {
+            // Call the openGoogleMaps method when the map icon is clicked
+            openGoogleMaps()
         }
         lifecycleScope.launch {
 

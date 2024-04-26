@@ -1,7 +1,9 @@
 package com.example.shoplo.viewmodel
 
+import android.widget.EditText
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.shoplo.R
 import com.example.shoplo.util.Resource
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
@@ -22,6 +24,8 @@ class LoginViewModel @Inject constructor(
 
     private val _resetPassword = MutableSharedFlow<Resource<String>>()
     val resetPassword = _resetPassword.asSharedFlow()
+
+
 
     fun signInWithCredential(credential: AuthCredential) {
         firebaseAuth.signInWithCredential(credential)

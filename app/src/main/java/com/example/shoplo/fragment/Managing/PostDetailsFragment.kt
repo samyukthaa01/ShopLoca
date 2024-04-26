@@ -12,6 +12,8 @@ import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.shoplo.R
 import com.example.shoplo.adapters.ViewPager2Images
 import com.example.shoplo.data.Post
 import com.example.shoplo.databinding.FragmentPostdetailsBinding
@@ -49,13 +51,13 @@ class PostDetailsFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
                 imageUri = data?.data
-                binding.uploadImage.setImageURI(imageUri)
+                binding.uploadimg.setImageURI(imageUri)
             } else {
                 Toast.makeText(requireContext(), "No Image Selected", Toast.LENGTH_SHORT).show()
             }
         }
 
-        binding.uploadImage.setOnClickListener {
+        binding.uploadimg.setOnClickListener {
             val photoPicker = Intent().apply {
                 action = Intent.ACTION_GET_CONTENT
                 type = "image/*"
@@ -79,16 +81,29 @@ class PostDetailsFragment : Fragment() {
         imageReference.putFile(uri).addOnSuccessListener { taskSnapshot ->
             imageReference.downloadUrl.addOnSuccessListener { uri ->
                 val sellerId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
-                val post = Post(postTitle = caption, postImages = listOf(uri.toString()), timestamp = System.currentTimeMillis())
-                firestore.collection("Posts").document(sellerId).collection("SellerPosts").add(post)
-                    .addOnSuccessListener {
-                        binding.progressBar.visibility = View.INVISIBLE
-                        Toast.makeText(requireContext(), "Uploaded", Toast.LENGTH_SHORT).show()
+
+                // Fetch the sellerName and shopName from Firestore
+                firestore.collection("shop").document(sellerId).get().addOnSuccessListener { shopDocument ->
+                    val sellerName = shopDocument.getString("fullName") ?: ""
+                    firestore.collection("seller").document(sellerId).get().addOnSuccessListener { sellerDocument ->
+                        val shopName = sellerDocument.getString("shopName") ?: ""
+
+                        // Create a new Post object with the sellerID, sellerName, and shopName
+                        val post = Post(postTitle = caption, postImages = listOf(uri.toString()), timestamp = System.currentTimeMillis(), shopName = shopName, sellerID = sellerId, sellerName = sellerName)
+
+                        firestore.collection("Posts").document(sellerId).collection("SellerPosts").add(post)
+                            .addOnSuccessListener {
+                                binding.progressBar.visibility = View.INVISIBLE
+                                Toast.makeText(requireContext(), "Uploaded", Toast.LENGTH_SHORT).show()
+
+                                findNavController().navigate(R.id.action_postDetailsFragment_to_postFragment)
+                            }
+                            .addOnFailureListener {
+                                binding.progressBar.visibility = View.INVISIBLE
+                                Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
+                            }
                     }
-                    .addOnFailureListener {
-                        binding.progressBar.visibility = View.INVISIBLE
-                        Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
-                    }
+                }
             }
         }.addOnProgressListener {
             binding.progressBar.visibility = View.VISIBLE
@@ -97,6 +112,7 @@ class PostDetailsFragment : Fragment() {
             Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun getFileExtension(fileUri: Uri): String {
         val contentResolver: ContentResolver = requireActivity().contentResolver

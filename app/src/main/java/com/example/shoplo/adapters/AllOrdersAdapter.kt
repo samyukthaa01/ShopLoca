@@ -1,5 +1,4 @@
 package com.example.shoplo.adapters
-
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -19,12 +18,12 @@ class AllOrdersAdapter : Adapter<AllOrdersAdapter.OrdersViewHolder>() {
         fun bind(order: Order) {
             binding.apply {
                 tvOrderId.text = order.orderId.toString()
-                tvOrderDate.text = order.date
+                tvOrderDate.text = order.orderDate
                 val resources = itemView.resources
 
                 val colorDrawable = when (getOrderStatus(order.orderStatus)) {
                     is OrderStatus.Ordered -> {
-                        ColorDrawable(resources.getColor(R.color.g_orange_yellow))
+                        ColorDrawable(resources.getColor(R.color.g_blue100))
                     }
                     is OrderStatus.Confirmed -> {
                         ColorDrawable(resources.getColor(R.color.g_green))

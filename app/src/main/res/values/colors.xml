@@ -31,7 +31,7 @@
     <color name="beige">#FFCF9D</color>
     <color name="selected_color_outline">#FAFBFC</color>
     <color name="color_option_1">#FF0000</color> <!-- Red -->
-    <color name="color_option_2">#eb860c</color> <!-- Orange -->
+    <color name="color_option_2">#FFFFFFFF</color> <!-- Orange -->
     <color name="color_option_3">#77bd88</color> <!-- Green -->
     <color name="color_option_4">#F8BA00</color> <!-- Yellow -->
     <color name="color_option_5">#000DAE</color> <!-- Navy Blue -->
@@ -40,5 +40,20 @@
     <color name="color_option_8">#c47acc</color> <!-- Purple -->
     <color name="color_option_9">#000000</color> <!-- Pink -->
     <color name="color_option_10">#FAFBFC</color> <!-- Purple -->
+    <color name="g_orange">#ed5605</color>
+    <color name="purple">#FFBB86FC</color>
+    <color name="blue">#FF6200EE</color>
+    <color name="dark_blue">#FF3700B3</color>
+    <color name="green">#004225</color>
+    <color name="turquoise">#FF018786</color>
+
+    <color name="grey">#777777</color>
+
+    <color name="theme_orange">#FFB000</color>
+    <color name="light_blue">#008eff</color>
+
+    <color name="chat_color_receiver">#FFB000</color>
+    <color name="chat_color_sender">#C5C2C2</color>
+
 
 </resources>

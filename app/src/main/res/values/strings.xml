@@ -26,18 +26,9 @@
         A TextView is a complete text editor, however the basic class is configured to not allow editing.
         </string>
 
-        <string name="camera">The Android framework includes support for various cameras and camera features
-        available on devices, allowing you to capture pictures and videos in your applications.
-        This document discusses a quick, simple approach to image and video capture and outlines an advanced
-        approach for creating custom camera experiences for your users.</string>
+        <string name="camera">Growing your business can be a difficult task to do. Leverage your business using ShopLoca by utlising our social media elements. Post more of your promotions and sale products on our app to reach more customers. Soial media can be a powerful tool for your to promote your products and reach a wider audience.</string>
 
-        <string name="recyclerview">RecyclerView is the ViewGroup that contains the views corresponding to your data.
-        Its a view itself so you add RecyclerView into your layout the way you would add any other UI element.
-        Each individual element in the list is defined by a view holder object.
-        RecyclerView is a ViewGroup added to the android studio as a successor of the GridView and ListView.
-        It is an improvement on both of them and can be found in the latest v-7 support packages.
-        It has been created to make possible construction of any lists with XML layouts as an item
-        which can be customized vastly while improving on the efficiency of ListViews and GridViews.
+        <string name="recyclerview"> Stand out among the crowd by being special. Post your handmade products and provide detailed descriptions on how your products are made. This helps to bring your customers closer and make them feel that your products required the most effort. State the ingredients you used and be specifi on why your ingredients are special too.
     </string>
 
 </resources>

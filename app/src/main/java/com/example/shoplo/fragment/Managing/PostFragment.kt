@@ -39,7 +39,7 @@ class PostFragment : Fragment() {
         postAdapter = PostAdapter(postList)
         recyclerView.adapter = postAdapter
 
-        // In PostDisplayFragment
+        // Set up click listener for PostAdapter
         postAdapter.onClick = { selectedPost ->
             val action = PostFragmentDirections
                 .actionPostFragmentToPostDetailsFragment(selectedPost)
@@ -66,15 +66,12 @@ class PostFragment : Fragment() {
         // Get the userID
         val sellerID = currentUser?.uid ?: ""
 
-        firestore.collection("Posts")
-            .whereEqualTo("sellerID", sellerID)
+        firestore.collection("Posts").document(sellerID).collection("SellerPosts")
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val newPosts = documents.map { it.toObject(Post::class.java) }
-                    postAdapter.updatePosts(newPosts)
-                }
+                val newPosts = documents.map { it.toObject(Post::class.java) }
+                postAdapter.updatePosts(newPosts)
                 postAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
@@ -82,4 +79,5 @@ class PostFragment : Fragment() {
                 Log.e("Firestore", "Error getting posts", exception)
             }
     }
+
 }

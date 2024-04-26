@@ -43,7 +43,8 @@ class ManagingActivity : AppCompatActivity() {
                 }
 
                 R.id.settings -> {
-                    Toast.makeText(this, "Settings action clicked", Toast.LENGTH_SHORT).show()
+                    val navController = findNavController(R.id.managingHostFragment)
+                    navController.navigate(R.id.profileFragment)
                     true
                 }
 

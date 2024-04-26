@@ -74,7 +74,14 @@ class ProductDetailViewFragment : Fragment() {
         }
 
 
+        binding.buttonEditProduct.setOnClickListener {
+            // Access product from the fragment's arguments
+            val productId = args.product.productId
 
+            // Navigate to the ProductFragment with the product ID
+            val action = ProductDetailViewFragmentDirections.actionProductDetailViewFragmentToEditProductFragment(productId)
+            findNavController().navigate(action)
+        }
         binding.apply {
             tvProductName.text = product.productName
             tvProductPrice.text = "RM ${product.price}"
@@ -92,7 +99,7 @@ class ProductDetailViewFragment : Fragment() {
 
 
         binding.buttonDeleteProduct.setOnClickListener {
-            showDeleteConfirmationDialog()
+            showDeleteConfirmationDialog(product.productId)
         }
 
 
@@ -126,12 +133,12 @@ class ProductDetailViewFragment : Fragment() {
 
 
 
-    private fun showDeleteConfirmationDialog() {
+    private fun showDeleteConfirmationDialog(productId: String) {
         AlertDialog.Builder(requireContext())
             .setTitle("Delete Product")
             .setMessage("Are you sure you want to delete this product?")
             .setPositiveButton("Yes") { dialog, _ ->
-                deleteProduct()
+                deleteProduct(productId)
                 dialog.dismiss()
             }
             .setNegativeButton("No") { dialog, _ ->
@@ -140,15 +147,9 @@ class ProductDetailViewFragment : Fragment() {
             .show()
     }
 
-    private fun deleteProduct() {
-        // Get the current user
-        val currentUser = FirebaseAuth.getInstance().currentUser
 
-        // Get the sellerID
-        val sellerID = currentUser?.uid ?: ""
-
-        // Delete the product from Firestore
-        firestore.collection("Products").document(sellerID)
+    private fun deleteProduct(productId: String) {
+        firestore.collection("Products").document(productId)
             .delete()
             .addOnSuccessListener {
                 Toast.makeText(requireContext(), "Product deleted successfully", Toast.LENGTH_SHORT).show()
@@ -157,6 +158,9 @@ class ProductDetailViewFragment : Fragment() {
                 Log.e("Firestore", "Error deleting product", exception)
             }
     }
+
+
+
 
 
 }

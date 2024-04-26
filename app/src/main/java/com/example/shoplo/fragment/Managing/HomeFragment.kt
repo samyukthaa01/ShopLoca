@@ -3,15 +3,28 @@ package com.example.shoplo.fragment.Managing
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.shoplo.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
+import com.google.firebase.storage.storage
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
-
+    private lateinit var hiMsg: TextView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Find hiMsg TextView
+        hiMsg = view.findViewById(R.id.hiMsg)
+
+        // Call function to fetch shop name
+        fetchShopName()
 
         // Find the BottomNavigationView by ID
         val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigation)
@@ -69,6 +82,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun onGuideImageClick(view: View) {
         findNavController().navigate(R.id.action_homeFragment_to_guideFragment)
+    }
+    // Assuming you have a function to fetch the shop name associated with the user
+    private fun fetchShopName() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val sellerId = currentUser?.uid
+
+        sellerId?.let {
+            FirebaseFirestore.getInstance().collection("seller")
+                .document(sellerId)
+                .get()
+                .addOnSuccessListener { documentSnapshot: DocumentSnapshot ->
+                    val shopName = documentSnapshot.getString("shopName")
+                    if (!shopName.isNullOrEmpty()) {
+                        hiMsg.text = "Hi $shopName!"
+                    } else {
+                        // Handle case where shop name is not available
+                    }
+                }
+                .addOnFailureListener { exception: Exception ->
+                    // Handle failure to fetch shop name
+                }
+        }
     }
 
     // New method for handling Order button click

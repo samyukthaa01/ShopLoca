@@ -12,7 +12,7 @@
 
     <item android:title="Message"
         android:icon="@drawable/messageoutline"
-        android:id="@+id/messageFragment"/>
+        android:id="@+id/chatFragment"/>
 
     <item android:title="Profile"
         android:icon="@drawable/person_icon"

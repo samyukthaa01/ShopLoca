@@ -257,11 +257,7 @@
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:layout_margin="4dp"
-                    android:background="@color/color_option_10"
-                    android:text="Others"
-                    android:textSize="12sp"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
+                    android:background="@color/g_black"
                     android:onClick="onColorOptionSelected" />
 
             </LinearLayout>

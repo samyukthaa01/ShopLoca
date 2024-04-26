@@ -1,60 +1,75 @@
+package com.example.shoplo.fragment.Managing
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.shoplo.adapters.AllOrdersAdapter
 import com.example.shoplo.databinding.FragmentOrdersBinding
 import com.example.shoplo.util.Resource
-import com.example.shoplo.viewmodel.OrderViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+//import com.example..util.hideBottomNavigationView
+import com.example.shoplo.viewmodel.AllOrdersViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
+@AndroidEntryPoint
 class AllOrdersFragment : Fragment() {
     private lateinit var binding: FragmentOrdersBinding
-    private val viewModel: OrderViewModel by viewModels()
-    private val ordersAdapter = AllOrdersAdapter()
+    val viewModel by viewModels<AllOrdersViewModel>()
+    val ordersAdapter by lazy { AllOrdersAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentOrdersBinding.inflate(inflater, container, false)
+        binding = FragmentOrdersBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set up the RecyclerView
-        binding.rvAllOrders.adapter = ordersAdapter
+        setupOrdersRv()
 
-        // Observe the orders from the ViewModel
-        lifecycleScope.launch {
-            viewModel.order.collect { resource ->
-                when (resource) {
+        lifecycleScope.launchWhenStarted {
+            viewModel.allOrders.collectLatest {
+                when (it) {
                     is Resource.Loading -> {
-                        // Show loading state
+                        binding.progressbarAllOrders.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
-                        // Update the RecyclerView with the orders
-                        ordersAdapter.differ.submitList(resource.data)
+                        binding.progressbarAllOrders.visibility = View.GONE
+                        ordersAdapter.differ.submitList(it.data)
+                        if (it.data.isNullOrEmpty()) {
+                            binding.tvEmptyOrders.visibility = View.VISIBLE
+                        }
                     }
                     is Resource.Error -> {
-                        // Show error state
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        binding.progressbarAllOrders.visibility = View.GONE
                     }
-
                     else -> Unit
-
-
                 }
             }
         }
 
-        // Fetch the orders
-        viewModel.getOrders()
+        ordersAdapter.onClick = {
+            val action = AllOrdersFragmentDirections.actionAllOrdersFragmentToOrderDetailFragment(it)
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun setupOrdersRv() {
+        binding.rvAllOrders.apply {
+            adapter = ordersAdapter
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        }
     }
 }

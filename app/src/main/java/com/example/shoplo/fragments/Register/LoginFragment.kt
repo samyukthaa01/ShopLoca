@@ -1,17 +1,22 @@
 package com.example.shoplo.fragments.Register
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
+import androidx.compose.ui.graphics.Color
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.shoplo.R
+
 import com.example.shoplo.activities.ManagingActivity
 import com.example.shoplo.databinding.FragmentLoginBinding
 import com.example.shoplo.dialog.setupBottomSheetDialog
@@ -24,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions.DEFAULT_SIGN_IN
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
+import android.text.TextWatcher
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,6 +41,7 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var googleSignInClient: GoogleSignInClient
     private val viewModel by viewModels<LoginViewModel>()
+
     private val RC_SIGN_IN = 591020719 // Example value, you can choose any integer value
     private lateinit var auth: FirebaseAuth
 
@@ -74,6 +81,7 @@ class LoginFragment : Fragment() {
                 // Call a function to start the Google Sign-In process
                 startGoogleSignIn()
             }
+
         }
 
         // Configure Google Sign-In

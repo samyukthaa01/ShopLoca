@@ -4,6 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+
 data class Product(
     val productId: String, // provide default values for each property
     val productName: String ,
@@ -15,6 +16,7 @@ data class Product(
     val sizes: List<String>? = null,
     val productImages: List<String>,
     val timestamp: Long = System.currentTimeMillis(),
+    val rating: String? = null,
     val shopName: String,
     val sellerID: String,
     val sellerName: String
@@ -29,6 +31,7 @@ data class Product(
         colors = null,
         sizes = null,
         productImages = emptyList(),
+        rating = null,
         shopName = "",
         sellerID = "",
         sellerName = ""

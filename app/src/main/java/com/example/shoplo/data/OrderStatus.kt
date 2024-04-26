@@ -2,7 +2,7 @@ package com.example.shoplo.data
 
 sealed class OrderStatus(val status: String) {
 
-    object Ordered: OrderStatus("Ordered")
+    object Ordered: OrderStatus("Order Placed")
     object Canceled: OrderStatus("Canceled")
     object Confirmed: OrderStatus("Confirmed")
     object Shipped: OrderStatus("Shipped")
@@ -12,7 +12,7 @@ sealed class OrderStatus(val status: String) {
 
 fun getOrderStatus(status: String): OrderStatus {
     return when (status) {
-        "Ordered" -> {
+        "Order Placed" -> {
             OrderStatus.Ordered
         }
         "Canceled" -> {

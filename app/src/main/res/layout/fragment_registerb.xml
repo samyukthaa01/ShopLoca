@@ -96,19 +96,40 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
         app:layout_constraintTop_toBottomOf="@id/Shopname" />
-
-    <EditText
-        android:id="@+id/edPickupaddress"
-        style="@style/editText"
+    <RelativeLayout
         android:layout_width="290dp"
         android:layout_height="@dimen/edittextHeight"
         android:layout_marginTop="15dp"
-        android:hint="Your preferred address"
-        android:inputType="text"
-        android:textColorHint="#B4B4B8"
         app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
         app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
-        app:layout_constraintTop_toBottomOf="@id/Pickupaddress" />
+        app:layout_constraintTop_toBottomOf="@id/Pickupaddress" >
+
+        <!-- Add padding to accommodate icon -->
+
+        <EditText
+            android:id="@+id/edPickupaddress"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Your preferred address"
+            android:inputType="text"
+            android:paddingEnd="0dp"
+            android:textColorHint="#B4B4B8" />
+
+        <ImageView
+            android:id="@+id/ivMapIcon"
+            android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_location"
+        android:contentDescription="Map Icon"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="openGoogleMaps" />
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/Email"

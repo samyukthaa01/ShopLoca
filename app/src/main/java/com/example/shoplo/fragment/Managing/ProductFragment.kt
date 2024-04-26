@@ -22,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.shoplo.R
 import com.example.shoplo.data.Product
 import com.example.shoplo.databinding.FragmentProductdetailsBinding
@@ -29,6 +30,8 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import com.google.firebase.storage.storage
+
+
 import com.skydoves.colorpickerview.ColorEnvelope
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import com.skydoves.colorpickerview.ColorPickerDialog
@@ -50,7 +53,7 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
 
     // Define the ORANGE constant
     private lateinit var categorySpinner: Spinner
-    private val ORANGE = android.graphics.Color.rgb(235, 134, 12)
+    //private val ORANGE = android.graphics.Color.rgb(235, 134, 12)
     private val LIGHT_BLUE = android.graphics.Color.rgb(184, 217, 250)
     private val GREEN = android.graphics.Color.rgb(119, 189, 136)
     private val BLUE = android.graphics.Color.rgb(0, 13, 174)
@@ -75,7 +78,11 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
 
         categorySpinner = view.findViewById(R.id.spinnerCategory)
         setupCategorySpinner()
+
+
     }
+
+
 
     private fun setupCategorySpinner() {
         // Get the array of categories from resources
@@ -97,7 +104,7 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
             onColorOptionSelected(android.graphics.Color.RED, it as Button)
         }
         binding.colorOption2.setOnClickListener {
-            onColorOptionSelected(ORANGE, it as Button)
+            onColorOptionSelected(android.graphics.Color.WHITE, it as Button)
         }
         binding.colorOption3.setOnClickListener {
             onColorOptionSelected(GREEN, it as Button)
@@ -117,7 +124,7 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
         }
 
         binding.colorOption10.setOnClickListener {
-            onColorOptionSelected(COLOR_OTHERS, it as Button)
+            onColorOptionSelected(android.graphics.Color.BLACK, it as Button)
         }
         // Add more color option buttons and listeners as needed
 
@@ -195,14 +202,15 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
     private fun colorIntToName(color: Int): String {
         return when (color) {
             android.graphics.Color.RED -> "Red"
-            ORANGE -> "Orange"
+            android.graphics.Color.WHITE -> "White"
             GREEN -> "Green"
             BLUE -> "Navy Blue"
             LIGHT_BLUE -> "Light Blue"
             PINK -> "Pink"
             PURPLE -> "Purple"
+            android.graphics.Color.BLACK -> "Black"
 
-            COLOR_OTHERS -> "Others"
+
             else -> "Unknown"
         }
     }
@@ -221,7 +229,6 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
     }
 
     private fun saveProduct() {
-
         val productName = binding.edName.text.toString().trim()
         val productCategory = categorySpinner.selectedItem.toString().trim()
         val price = binding.edPrice.text.toString().trim()
@@ -258,9 +265,7 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
                     val productImages = mutableListOf<String>()
 
                     lifecycleScope.launch(Dispatchers.IO) {
-                        withContext(Dispatchers.Main) {
-
-                        }
+                        withContext(Dispatchers.Main) {}
 
                         try {
                             async {
@@ -278,12 +283,11 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
                             }.await()
                         } catch (e: java.lang.Exception) {
                             e.printStackTrace()
-                            withContext(Dispatchers.Main) {
-
-                            }
+                            withContext(Dispatchers.Main) {}
                         }
+
                         val product = Product(
-                            UUID.randomUUID().toString(),
+                            "", // Empty string for now, will be replaced with Firestore document ID
                             productName,
                             productCategory,
                             price.toFloat(),
@@ -293,18 +297,28 @@ class ProductFragment : Fragment(R.layout.fragment_productdetails) {
                             sizes,
                             productImages,
                             System.currentTimeMillis(),
+                            rating = null,
                             shopName, // new field
                             sellerID, // new field
                             sellerName // new field
                         )
-                        firestore.collection("Products").add(product).addOnSuccessListener {
-                            binding.buttonSave.revertAnimation()
-                        }.addOnFailureListener {
-                            binding.buttonSave.revertAnimation()
-                            Log.e("Error", it.message.toString())
+
+                        // Add the product to Firestore and use the document ID as product ID
+                        firestore.collection("Products").add(product).addOnSuccessListener { documentReference ->
+                            val productId = documentReference.id
+                            // Update the product with the generated document ID as product ID
+                            val updatedProduct = product.copy(productId = productId)
+                            // Update the product in Firestore with the product ID
+                            firestore.collection("Products").document(productId).set(updatedProduct)
+                                .addOnSuccessListener {
+                                    binding.buttonSave.revertAnimation()
+                                }.addOnFailureListener {
+                                    binding.buttonSave.revertAnimation()
+                                    Log.e("Error", it.message.toString())
+                                }
                         }
                     }
-                } // This closing bracket was missing
+                }
         }
     }
 
