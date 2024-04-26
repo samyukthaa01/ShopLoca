@@ -22,7 +22,7 @@ class OrderItemAdapter(private val context: Context, private val items: List<Ite
     override fun onBindViewHolder(holder: OrderItemViewHolder, position: Int) {
         val item = items[position]
 
-        holder.productName.text = item.productsName
+        holder.productName.text = item.productName
         holder.productPrice.text = item.productPrice.toString()
         holder.totalQuantity.text = item.totalQuantity.toString()
         holder.totalPrice.text = item.totalPrice.toString()
