@@ -1,5 +1,6 @@
 package com.example.shoplo.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shoplo.data.Order
@@ -42,11 +43,11 @@ class AllOrdersViewModel @Inject constructor(
         // Create an empty list to hold the orders
         val orders = mutableListOf<Order>()
 
-        // Create an empty list to hold the item IDs
-        val itemIDs = mutableListOf<String>()
-
         // Get a reference to the Order collection
         val orderRef = firestore.collection("Order")
+
+        // Log sellerID for debugging
+        Log.d("AllOrdersViewModel", "Seller ID: $sellerID")
 
         // Fetch all documents from the Order collection
         orderRef.get().addOnSuccessListener { orderDocuments ->
@@ -56,8 +57,13 @@ class AllOrdersViewModel @Inject constructor(
                     .addOnSuccessListener { ordersDocuments ->
                         for (ordersDocument in ordersDocuments) {
                             // For each Orders document, fetch the Items subcollection
-                            ordersDocument.reference.collection("Items").get()
+                            ordersDocument.reference.collection("Items")
+                                .whereEqualTo("sellerID", sellerID)
+                                .get()
                                 .addOnSuccessListener { itemsDocuments ->
+                                    // Log the number of items fetched for debugging
+                                    Log.d("AllOrdersViewModel", "Number of items fetched: ${itemsDocuments.size()}")
+
                                     val items = mutableListOf<Item>()
                                     for (itemDocument in itemsDocuments) {
                                         // Create an Item object from the retrieved document
@@ -65,41 +71,79 @@ class AllOrdersViewModel @Inject constructor(
                                         val productName = itemDocument.getString("productName") ?: ""
                                         val productPrice = itemDocument.getString("productPrice") ?: ""
                                         val totalPrice = itemDocument.getDouble("totalPrice") ?: 0.0f
-                                        val totalQuantity = itemDocument.getLong("totalQuantity")?.toInt() ?: 0
-                                        val productImage = itemDocument.get("productImage") as List<String> // assuming productImage is a List<String>
+                                        val totalQuantity = itemDocument.getString("totalQuantity")?: ""
+                                        val selectedColor = itemDocument.getString(("selectedColor"))?: ""
+                                        val selectedSize = itemDocument.getString(("selectedSize"))?: ""
+                                        val productImage = itemDocument.get("productImage")
+                                        val productImageList = if (productImage is List<*>) {
+                                            // If it's already a list, cast it to List<String>
+                                            productImage as List<String>
+                                        } else if (productImage is String) {
+                                            // If it's a string, create a list with a single element
+                                            listOf(productImage)
+                                        } else {
+                                            // Handle other cases if necessary
+                                            // For example, you may want to throw an exception or provide a default value
+                                            throw IllegalArgumentException("Invalid type for productImage")
+                                        } // assuming productImage is a List<String>
 
-                                        val item = Item(itemId, productImage, productName, productPrice, totalPrice, totalQuantity)
+                                        val item = Item(itemId, productImageList, productName, productPrice,selectedSize, selectedColor,totalPrice, totalQuantity)
                                         // Add the Item object to the list
                                         items.add(item)
                                     }
 
-                                    // Now you have the list of items associated with this order
-                                    // Update your Order object to include this list of items
-                                    val order = ordersDocument.toObject(Order::class.java)
-                                    order.items = items
+                                    // If any item with matching sellerID is found, include the order
+                                    if (!itemsDocuments.isEmpty) {
+                                        // Log success message for debugging
+                                        Log.d("AllOrdersViewModel", "Items found for seller ID: $sellerID")
 
-                                    // Add the order to the list
-                                    orders.add(order)
+                                        // Convert the Orders document to Order object
+                                        val order = ordersDocument.toObject(Order::class.java)
+                                        order.items = items // Add the items to the order
 
-                                    // Emit the list of orders
-                                    val sortedOrders = orders.sortedByDescending { it.orderDate }
-                                    viewModelScope.launch {
-                                        _allOrders.emit(Resource.Success(sortedOrders))
+                                        // Fetch the customer information
+                                        firestore.collection("CurrentUser").document(orderDocument.id).get()
+                                            .addOnSuccessListener { userDocument ->
+                                                val user = userDocument.toObject(CurrentUser::class.java)?: CurrentUser()
+                                                if (user != null) {
+                                                    order.users = listOf(user)
+                                                // Add the user to the order
+
+                                                    // Log the user details for debugging
+                                                    Log.d("AllOrdersViewModel", "User details: $user")
+                                                }
+
+                                                orders.add(order)
+
+                                                // Emit the list of orders
+                                                val sortedOrders = orders.sortedByDescending { it.orderDate }
+                                                viewModelScope.launch {
+                                                    _allOrders.emit(Resource.Success(sortedOrders))
+                                                }
+                                            }
                                     }
                                 }.addOnFailureListener { error ->
-                                // Handle failure to fetch Items subcollection
-                                viewModelScope.launch {
-                                    _allOrders.emit(Resource.Error(error.message.toString()))
+                                    // Log error message for debugging
+                                    Log.e("AllOrdersViewModel", "Error fetching items: ${error.message}")
+
+                                    // Handle failure to fetch Items subcollection
+                                    viewModelScope.launch {
+                                        _allOrders.emit(Resource.Error(error.message.toString()))
+                                    }
                                 }
-                            }
                         }
                     }.addOnFailureListener { error ->
-                    // Handle failure to fetch Orders subcollection
-                    viewModelScope.launch {
-                        _allOrders.emit(Resource.Error(error.message.toString()))
-                    }
-                }
+                        // Log error message for debugging
+                        Log.e("AllOrdersViewModel", "Error fetching orders: ${error.message}")
 
+                        // Handle failure to fetch Orders subcollection
+                        viewModelScope.launch {
+                            _allOrders.emit(Resource.Error(error.message.toString()))
+                        }
+                    }
             }
         }
-    }}
+    }
+
+
+}

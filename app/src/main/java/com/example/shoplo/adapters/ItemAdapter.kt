@@ -40,7 +40,7 @@ class ItemAdapter(private val context: Context, private var itemIds: List<Item>)
         holder.total_price.text = item.totalPrice.toString()
         // Load image using Glide
         Glide.with(context)
-            .load(item.productImage)
+            .load(item.productImages)
             .placeholder(R.drawable.placeholder)
             .into(holder.product_image)
     }

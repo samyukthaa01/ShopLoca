@@ -19,6 +19,6 @@ data class Order(
     val orderDate: String = "",
     val orderTime: String = "",
     val orderId: String = "",
-    val address: CurrentUser = CurrentUser(),
-    var items: List<Item> = listOf()
+    var items: List<Item> = listOf(),
+    var users: List<CurrentUser> = listOf()
 ): Parcelable

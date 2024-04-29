@@ -10,11 +10,13 @@ import kotlin.random.Random.Default.nextLong
 @Parcelize
 data class Item(
     val itemId: String,
-val productImage: List<String>,
+val productImages: List<String>,
 val productName: String ,
 val productPrice: String ,
+    val selectedColor: String,
+    val selectedSize: String,
 val totalPrice: Number,
-val totalQuantity: Int
+val totalQuantity: String
 
 
 ): Parcelable
